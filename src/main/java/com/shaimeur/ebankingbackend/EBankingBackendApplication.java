@@ -1,14 +1,12 @@
 package com.shaimeur.ebankingbackend;
 
-import com.shaimeur.ebankingbackend.entities.AccountOperation;
-import com.shaimeur.ebankingbackend.entities.CurrentAccount;
-import com.shaimeur.ebankingbackend.entities.Customer;
-import com.shaimeur.ebankingbackend.entities.SavingAccount;
+import com.shaimeur.ebankingbackend.entities.*;
 import com.shaimeur.ebankingbackend.enums.AccountStatus;
 import com.shaimeur.ebankingbackend.enums.OperationType;
-import com.shaimeur.ebankingbackend.repositories.AccountOperationRepository;
-import com.shaimeur.ebankingbackend.repositories.BankAccountRepository;
-import com.shaimeur.ebankingbackend.repositories.CustomerRepository;
+import com.shaimeur.ebankingbackend.mappers.repositories.AccountOperationRepository;
+import com.shaimeur.ebankingbackend.mappers.repositories.BankAccountRepository;
+import com.shaimeur.ebankingbackend.mappers.repositories.CustomerRepository;
+import com.shaimeur.ebankingbackend.services.BankService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,8 +22,13 @@ public class EBankingBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(EBankingBackendApplication.class, args);
     }
-
     @Bean
+    CommandLineRunner commandLineRunner(BankService bankService){
+        return args-> {
+                bankService.consulter();
+        };
+    }
+    //@Bean
     CommandLineRunner start(CustomerRepository customerRepository ,
                             AccountOperationRepository accountOperationRepository,
                             BankAccountRepository bankAccountRepository
@@ -67,6 +70,7 @@ public class EBankingBackendApplication {
                         accountOperation.setBankAccount(acc);
                         accountOperationRepository.save(accountOperation);
                     }
+
 
                 });
         };
