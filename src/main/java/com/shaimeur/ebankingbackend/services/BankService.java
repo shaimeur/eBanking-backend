@@ -3,7 +3,7 @@ package com.shaimeur.ebankingbackend.services;
 import com.shaimeur.ebankingbackend.entities.BankAccount;
 import com.shaimeur.ebankingbackend.entities.CurrentAccount;
 import com.shaimeur.ebankingbackend.entities.SavingAccount;
-import com.shaimeur.ebankingbackend.mappers.repositories.BankAccountRepository;
+import com.shaimeur.ebankingbackend.repositories.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

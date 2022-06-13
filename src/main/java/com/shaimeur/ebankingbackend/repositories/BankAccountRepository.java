@@ -1,4 +1,4 @@
-package com.shaimeur.ebankingbackend.mappers.repositories;
+package com.shaimeur.ebankingbackend.repositories;
 
 import com.shaimeur.ebankingbackend.entities.BankAccount;
 import com.shaimeur.ebankingbackend.entities.Customer;

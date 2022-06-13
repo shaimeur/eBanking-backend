@@ -9,10 +9,12 @@ import javax.persistence.Entity;
 
 @Entity
 //@DiscriminatorValue("CA")
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CurrentAccount extends BankAccount {
 
-    private  double overDraft ;
+    private double overDraft;
 
 
 }
