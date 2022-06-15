@@ -1,5 +1,6 @@
 package com.shaimeur.ebankingbackend.services;
 
+import com.shaimeur.ebankingbackend.dtos.CustomerDTO;
 import com.shaimeur.ebankingbackend.entities.BankAccount;
 import com.shaimeur.ebankingbackend.entities.CurrentAccount;
 import com.shaimeur.ebankingbackend.entities.Customer;
@@ -17,7 +18,7 @@ public interface BankAccountService {
 
     SavingAccount saveSavingBankAccount(double intialBalance, double intrestRate, Long customerId) throws CustomerNotFoundException;
 
-    List<Customer> listCustomer();
+    List<CustomerDTO> listCustomers();
 
     BankAccount getBankAccount(String accountId) throws BankAccountNotFoundException;
 

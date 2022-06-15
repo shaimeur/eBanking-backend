@@ -37,7 +37,7 @@ public class EBankingBackendApplication {
                 customer.setEmail(name + "@email.com");
                 bankAccountService.saveCustomer(customer);
             });
-            bankAccountService.listCustomer().forEach(customer -> {
+            bankAccountService.listCustomers().forEach(customer -> {
                 try {
                     bankAccountService.saveCurrentBankAccount(Math.random()*90000,9000,customer.getId());
                     bankAccountService.saveSavingBankAccount(Math.random()*120000,5.5,customer.getId());
