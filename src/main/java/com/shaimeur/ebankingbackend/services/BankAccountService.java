@@ -1,6 +1,9 @@
 package com.shaimeur.ebankingbackend.services;
 
+import com.shaimeur.ebankingbackend.dtos.BankAccountDTO;
+import com.shaimeur.ebankingbackend.dtos.CurrentBankAccountDTO;
 import com.shaimeur.ebankingbackend.dtos.CustomerDTO;
+import com.shaimeur.ebankingbackend.dtos.SavingBankAccountDTO;
 import com.shaimeur.ebankingbackend.entities.BankAccount;
 import com.shaimeur.ebankingbackend.entities.CurrentAccount;
 import com.shaimeur.ebankingbackend.entities.Customer;
@@ -12,15 +15,15 @@ import com.shaimeur.ebankingbackend.exceptions.CustomerNotFoundException;
 import java.util.List;
 
 public interface BankAccountService {
-    Customer saveCustomer(Customer customer);
+    CustomerDTO saveCustomer(CustomerDTO customerDTO);
 
-    CurrentAccount saveCurrentBankAccount(double intialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
+    CurrentBankAccountDTO saveCurrentBankAccount(double intialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
 
-    SavingAccount saveSavingBankAccount(double intialBalance, double intrestRate, Long customerId) throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double intialBalance, double intrestRate, Long customerId) throws CustomerNotFoundException;
 
     List<CustomerDTO> listCustomers();
 
-    BankAccount getBankAccount(String accountId) throws BankAccountNotFoundException;
+    BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
 
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
@@ -29,5 +32,11 @@ public interface BankAccountService {
     void transfert(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
 
-    List<BankAccount> bankAccountList();
+    List<BankAccountDTO> bankAccountList();
+
+    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
+
+    CustomerDTO updateCustomer(CustomerDTO customerDTO);
+
+    void deleteCustomer(Long customerId);
 }
