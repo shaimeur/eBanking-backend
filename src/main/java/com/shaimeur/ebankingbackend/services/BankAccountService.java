@@ -1,9 +1,6 @@
 package com.shaimeur.ebankingbackend.services;
 
-import com.shaimeur.ebankingbackend.dtos.BankAccountDTO;
-import com.shaimeur.ebankingbackend.dtos.CurrentBankAccountDTO;
-import com.shaimeur.ebankingbackend.dtos.CustomerDTO;
-import com.shaimeur.ebankingbackend.dtos.SavingBankAccountDTO;
+import com.shaimeur.ebankingbackend.dtos.*;
 import com.shaimeur.ebankingbackend.entities.BankAccount;
 import com.shaimeur.ebankingbackend.entities.CurrentAccount;
 import com.shaimeur.ebankingbackend.entities.Customer;
@@ -39,4 +36,8 @@ public interface BankAccountService {
     CustomerDTO updateCustomer(CustomerDTO customerDTO);
 
     void deleteCustomer(Long customerId);
+
+    List<AccountOperationDTO> accountHistory(String accountId);
+
+    AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
 }

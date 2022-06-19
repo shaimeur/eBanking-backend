@@ -1,6 +1,9 @@
 package com.shaimeur.ebankingbackend;
 
+import com.shaimeur.ebankingbackend.dtos.BankAccountDTO;
+import com.shaimeur.ebankingbackend.dtos.CurrentBankAccountDTO;
 import com.shaimeur.ebankingbackend.dtos.CustomerDTO;
+import com.shaimeur.ebankingbackend.dtos.SavingBankAccountDTO;
 import com.shaimeur.ebankingbackend.entities.*;
 import com.shaimeur.ebankingbackend.enums.AccountStatus;
 import com.shaimeur.ebankingbackend.enums.OperationType;
@@ -40,22 +43,37 @@ public class EBankingBackendApplication {
             });
             bankAccountService.listCustomers().forEach(customer -> {
                 try {
-                    bankAccountService.saveCurrentBankAccount(Math.random()*90000,9000,customer.getId());
-                    bankAccountService.saveSavingBankAccount(Math.random()*120000,5.5,customer.getId());
-                    List<BankAccount> bankAccounts = bankAccountService.bankAccountList();
-                    for (BankAccount bankAccount:bankAccounts){
-                        for (int i = 0; i < 10; i++) {
-                            bankAccountService.credit(bankAccount.getId(),10000 +Math.random()*120000,"Credit");
-                            bankAccountService.debit(bankAccount.getId(),1000 +Math.random()*9000,"Debit");
-                        }
-                    }
+                    bankAccountService.saveCurrentBankAccount(Math.random() * 90000, 9000, customer.getId());
+                    bankAccountService.saveSavingBankAccount(Math.random() * 120000, 5.5, customer.getId());
                 } catch (CustomerNotFoundException e) {
                     e.printStackTrace();
-                } catch (BankAccountNotFoundException | BalanceNotSufficientException e) {
-                    throw new RuntimeException(e);
                 }
 
             });
+            List<BankAccountDTO> bankAccounts = bankAccountService.bankAccountList();
+            for (BankAccountDTO bankAccount : bankAccounts) {
+                for (int i = 0; i < 10; i++) {
+                    // i just add  this variable in the restController incted of the BankAccountDTO cause is empty it would make some problémes
+                    String accoundId;
+                    if (bankAccount instanceof SavingBankAccountDTO) {
+                        accoundId = ((SavingBankAccountDTO) bankAccount).getId();
+                    } else {
+                        accoundId = ((CurrentBankAccountDTO) bankAccount).getId();
+                    }
+                    try {
+                        bankAccountService.credit(accoundId, 10000 + Math.random() * 120000, "Credit");
+                    } catch (BalanceNotSufficientException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        bankAccountService.debit(accoundId, 1000 + Math.random() * 9000, "Debit");
+                    } catch (BalanceNotSufficientException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }
+            }
         };
     }
 

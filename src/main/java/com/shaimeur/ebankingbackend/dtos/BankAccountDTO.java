@@ -14,7 +14,7 @@ import java.util.List;
 
 
 //@DiscriminatorColumn(name ="TYPE",length = 4, discriminatorType = DiscriminatorType.STRING)
-
+@Data
 public  class BankAccountDTO {
-
+        private String type;
 }
